@@ -1,0 +1,58 @@
+{
+	"name": "angular-service",
+	"displayName": "angular-service",
+	"publisher": "TheIlPlace",
+	"description": "",
+	"version": "0.0.5",
+	"engines": {
+		"vscode": "^1.30.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.insertService",
+		"onCommand:extension.insertServiceWithconstructor"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.insertService",
+				"title": "Insert Angular Service"
+			},
+			{
+				"command": "extension.insertServiceWithconstructor",
+				"title": "Insert Angular Service with Constructor"
+			}
+		],
+		"keybindings": [
+			{
+				"command": "extension.insertService",
+				"key": "ctrl+shift+i",
+				"mac": "cmd+shift+i",
+				"when": "editorTextFocus && !editorHasSelection"
+			},
+			{
+				"command": "extension.insertServiceWithconstructor",
+				"key": "alt+shift+i",
+				"mac": "alt+shift+i",
+				"when": "editorTextFocus && !editorHasSelection"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "npm run compile && node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^3.1.4",
+		"vscode": "^1.1.25",
+		"tslint": "^5.8.0",
+		"@types/node": "^8.10.25",
+		"@types/mocha": "^2.2.42"
+	}
+}
