@@ -33,7 +33,7 @@ just add `,:LoggerService`   after the existing service,  let vscode do the impo
 
 
 
-### 0.1.0
+### 0.1.2
 
 Initial release 
 

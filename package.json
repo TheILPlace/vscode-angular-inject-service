@@ -3,7 +3,7 @@
 	"displayName": "Angular Inject Service",
 	"publisher": "TheIlPlace",
 	"description": "Easily inject angular services",
-	"version": "0.1.0",
+	"version": "0.1.2",
 	"icon": "images/angular-inject.png",
 	"galleryBanner": {
 		"color": "#0273D4",
@@ -33,13 +33,13 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.injectService",
+				"command": "extension.insertService",
 				"title": "Angular Inject Service"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "extension.injectService",
+				"command": "extension.insertService",
 				"key": "ctrl+shift+i",
 				"mac": "cmd+shift+i",
 				"when": "editorTextFocus && !editorHasSelection"
