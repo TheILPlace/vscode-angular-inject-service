@@ -23,7 +23,7 @@ option 2: constructor already exists
 
 just add `,:LoggerService`   after the existing service,  let vscode do the import of the service, press CTRL-Shift-I , and the text will change to
 
-`constructor (private userService: UserService, private loggerService: LoggerService )`
+`constructor (private userService: UserService, private loggerService: LoggerService ) {}`
 
 
 
