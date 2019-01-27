@@ -12,65 +12,53 @@ function activate(context) {
     // The command has been defined in the package.json file
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('extension.insertService', () => {
+    let disposable = vscode.commands.registerCommand('extension.injectService', () => {
         // The code you place here will be executed every time your command is executed
-        insertService();
-        // Display a message box to the user
-        //vscode.window.showInformationMessage('Hello World!');
-    });
-    let disposable2 = vscode.commands.registerCommand('extension.insertServiceWithconstructor', () => {
-        // The code you place here will be executed every time your command is executed
-        insertService(true);
+        injectService();
         // Display a message box to the user
         //vscode.window.showInformationMessage('Hello World!');
     });
     context.subscriptions.push(disposable);
-    context.subscriptions.push(disposable2);
 }
 exports.activate = activate;
 // this method is called when your extension is deactivated
 function deactivate() { }
 exports.deactivate = deactivate;
-function insertService(withConstructor = false) {
+function injectService() {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
         return;
     }
     editor.edit(builder => {
-        editor.selections.forEach(selection => {
-            //const text = editor.document.getText(selection);
-            const position = selection.start;
-            // loop back to find the ':'
-            let foundColon = 0;
-            for (let index = position.character; index >= 0; index--) {
-                const range = new vscode.Range(position.line, index, position.line, index + 1);
-                console.log(editor.document.getText(range));
-                if (editor.document.getText(range) === ':') {
-                    foundColon = index;
-                    break;
-                }
-            }
-            const servicerange = new vscode.Range(position.line, foundColon + 1, position.line, position.character);
-            let service = editor.document.getText(servicerange);
-            //service = service.toLocaleLowerCase();
-            service = service.charAt(0).toLowerCase() + service.slice(1);
-            console.log(service);
-            let newposition;
-            if (withConstructor) {
-                // at the end , add ") {}"
-                newposition = new vscode.Position(position.line, position.character);
-                builder.insert(newposition, ') {}');
-            }
-            newposition = new vscode.Position(position.line, foundColon + 1);
-            builder.insert(newposition, ' '); // space after semicolon
-            newposition = new vscode.Position(position.line, foundColon);
-            if (withConstructor) {
-                builder.insert(newposition, 'constructor (private ' + service);
-            }
-            else {
-                builder.insert(newposition, 'private ' + service);
-            }
-        });
+        const position = editor.selection.start;
+        let foundColon = 0;
+        const lineUntilCursor = editor.document.getText(new vscode.Range(position.line, 0, position.line, position.character));
+        // loop back to find the ':'
+        foundColon = lineUntilCursor.lastIndexOf(':');
+        if (foundColon < 0) {
+            return;
+        }
+        //get the injected service name
+        const originalServiceName = editor.document.getText(new vscode.Range(position.line, foundColon + 1, position.line, position.character));
+        // change the first letter to lowercase
+        const service = originalServiceName.charAt(0).toLowerCase() + originalServiceName.slice(1);
+        // search if 'constructor' exist in our code
+        const firstLine = editor.document.lineAt(0);
+        const lastLine = editor.document.lineAt(editor.document.lineCount - 1);
+        const textRange = new vscode.Range(0, firstLine.range.start.character, editor.document.lineCount - 1, lastLine.range.end.character);
+        let replacementText = '';
+        if (editor.document.getText(textRange).indexOf('constructor') < 0) {
+            replacementText = 'constructor(private ' + service + ': ' + originalServiceName + ') {}';
+        }
+        else {
+            replacementText = 'private ' + service + ': ' + originalServiceName;
+        }
+        builder.replace(new vscode.Range(position.line, position.character - originalServiceName.length - 1, position.line, position.character), replacementText);
+    })
+        .then(success => {
+        // change the selection: start postion and end portion of the new selection is same, so it is not to select replaced text;
+        var postion = editor.selection.end;
+        editor.selection = new vscode.Selection(postion, postion);
     });
 }
 //# sourceMappingURL=extension.js.map

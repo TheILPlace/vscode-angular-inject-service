@@ -1,42 +1,47 @@
 {
 	"name": "angular-service",
-	"displayName": "angular-service",
+	"displayName": "Angular Inject Service",
 	"publisher": "TheIlPlace",
-	"description": "",
-	"version": "0.0.5",
+	"description": "Easily inject angular services",
+	"version": "0.1.0",
+	"icon": "images/angular-inject.png",
+	"galleryBanner": {
+		"color": "#0273D4",
+		"theme": "dark"
+	  },
+	"keywords": [
+		"Angular",
+		"Angular 7",
+		"Inject",
+		"Services"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/johnpapa/vscode-angular-snippets.git"
+	  },
 	"engines": {
-		"vscode": "^1.30.0"
+		"vscode": "^1.20.0"
 	},
 	"categories": [
-		"Other"
+		"Snippets"
 	],
+	"license": "MIT",
 	"activationEvents": [
-		"onCommand:extension.insertService",
-		"onCommand:extension.insertServiceWithconstructor"
+		"onCommand:extension.insertService"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.insertService",
-				"title": "Insert Angular Service"
-			},
-			{
-				"command": "extension.insertServiceWithconstructor",
-				"title": "Insert Angular Service with Constructor"
+				"command": "extension.injectService",
+				"title": "Angular Inject Service"
 			}
 		],
 		"keybindings": [
 			{
-				"command": "extension.insertService",
+				"command": "extension.injectService",
 				"key": "ctrl+shift+i",
 				"mac": "cmd+shift+i",
-				"when": "editorTextFocus && !editorHasSelection"
-			},
-			{
-				"command": "extension.insertServiceWithconstructor",
-				"key": "alt+shift+i",
-				"mac": "alt+shift+i",
 				"when": "editorTextFocus && !editorHasSelection"
 			}
 		]

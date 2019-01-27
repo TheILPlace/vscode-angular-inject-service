@@ -3,4 +3,4 @@ All notable changes to the "angular-service" extension will be documented in thi
 
 
 ## [Unreleased]
-0.0.1 - Initial release
+0.1.0 - Initial release
