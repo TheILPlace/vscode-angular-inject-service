@@ -1,5 +1,5 @@
 {
-	"name": "angular-service",
+	"name": "angular-inject-service",
 	"displayName": "Angular Inject Service",
 	"publisher": "TheIlPlace",
 	"description": "Easily inject angular services",
@@ -17,7 +17,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/TheILPlace/vscode-angular-inject-service"
+		"url": "https://github.com/TheILPlace/vscode-angular-inject-service.git"
 	  },
 	"engines": {
 		"vscode": "^1.20.0"
